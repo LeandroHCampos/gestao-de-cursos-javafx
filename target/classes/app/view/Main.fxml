@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainController">
+    <left>
+        <VBox fx:id="menuContainer" spacing="10" style="-fx-background-color: #2E3B4E; -fx-padding: 10;">
+            <Button fx:id="toggleMenuBtn" onAction="#toggleMenu" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-min-width: 30; -fx-padding: 5;">
+                <graphic>
+                    <Text style="-fx-font-size: 20px; -fx-fill: white;" text="☰" />
+                </graphic>
+            </Button>
+
+            <Button fx:id="dashboardBtn" onAction="#showDashboard" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-min-width: 30; -fx-padding: 5;">
+                <graphic>
+                    <HBox fx:id="dashboardGraphic" alignment="CENTER_LEFT" spacing="5">
+                        <Text style="-fx-font-size: 20px; -fx-fill: white" text="📊" />
+                        <Text fx:id="dashboardText" style="-fx-fill: white; -fx-font-size: 14px;" text="Dashboard" />
+                    </HBox>
+                </graphic>
+            </Button>
+
+
+            <!-- Botão Cursos -->
+            <Button fx:id="cursosBtn" onAction="#showCursos" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-min-width: 30; -fx-padding: 5;">
+                <graphic>
+                    <HBox fx:id="cursosGraphic" alignment="CENTER_LEFT" spacing="5">
+                        <Text style="-fx-font-size: 20px; -fx-fill: white" text="📚" />
+                        <Text fx:id="cursosText" style="-fx-fill: white; -fx-font-size: 14px;" text="Cursos" />
+                    </HBox>
+                </graphic>
+            </Button>
+
+            <!-- Botão Alunos -->
+            <Button fx:id="alunosBtn" onAction="#showAlunos" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-min-width: 30; -fx-padding: 5;">
+                <graphic>
+                    <HBox fx:id="alunosGraphic" alignment="CENTER_LEFT" spacing="5">
+                        <Text style="-fx-font-size: 20px; -fx-fill: white" text="👨‍🎓" />
+                        <Text fx:id="alunosText" style="-fx-fill: white; -fx-font-size: 14px;" text="Alunos" />
+                    </HBox>
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <!-- Dashboard View -->
+            <VBox fx:id="dashboardView" alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Dashboard" />
+                <HBox alignment="CENTER" spacing="40">
+                    <VBox alignment="CENTER" style="-fx-background-color: #f0f0f0; -fx-padding: 20; -fx-background-radius: 10;">
+                        <Label style="-fx-font-size: 16px;" text="Total de Cursos" />
+                        <Label style="-fx-font-size: 32px; -fx-font-weight: bold;" text="5" />
+                    </VBox>
+                    <VBox alignment="CENTER" style="-fx-background-color: #f0f0f0; -fx-padding: 20; -fx-background-radius: 10;">
+                        <Label style="-fx-font-size: 16px;" text="Total de Alunos" />
+                        <Label style="-fx-font-size: 32px; -fx-font-weight: bold;" text="25" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Cursos View -->
+            <VBox fx:id="cursosView" spacing="20" style="-fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Cursos" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#adicionarCurso" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar Curso" />
+                </HBox>
+                <TableView fx:id="cursosTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="cursoIdColumn" text="ID" />
+                        <TableColumn fx:id="cursoNomeColumn" text="Nome" />
+                        <TableColumn fx:id="cursoCargaHorariaColumn" text="Carga Horária" />
+                        <TableColumn fx:id="cursoLimiteAlunosColumn" text="Limite de Alunos" />
+                        <TableColumn fx:id="cursoAtivoColumn" text="Ativo" />
+
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Alunos View -->
+            <VBox fx:id="alunosView" spacing="20" style="-fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Alunos" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#adicionarAluno" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar Aluno" />
+                </HBox>
+                <TableView fx:id="alunosTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="idAlunoColumn" text="ID" />
+                        <TableColumn fx:id="alunoNomeColumn" text="Nome" />
+                        <TableColumn fx:id="alunoCpfColumn" text="Cpf" />
+                        <TableColumn fx:id="alunoTelefoneColumn" text="Telefone" />
+                        <TableColumn fx:id="alunoEmailColumn" text="E-mail" />
+                        <TableColumn fx:id="alunoDateColumn" prefWidth="125.0" text="Data de Nascimento" />
+                        <TableColumn fx:id="alunoCursoColumn" prefWidth="57.199951171875" text="Curso" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
