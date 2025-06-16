@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainController">
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainController">
     <left>
         <VBox fx:id="menuContainer" spacing="10" style="-fx-background-color: #2E3B4E; -fx-padding: 10;">
             <Button fx:id="toggleMenuBtn" onAction="#toggleMenu" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-min-width: 30; -fx-padding: 5;">
@@ -83,20 +83,43 @@
 
             <!-- Alunos View -->
             <VBox fx:id="alunosView" spacing="20" style="-fx-padding: 20;">
+
+                <!-- Cabeçalho com botão Adicionar -->
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Alunos" />
                     <Region HBox.hgrow="ALWAYS" />
-                    <Button onAction="#adicionarAluno" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar Aluno" />
+                    <Button onAction="#toggleFormularioAluno" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar Aluno" />
                 </HBox>
+
+                <!-- Formulário oculto por padrão -->
+                <VBox fx:id="formularioAluno" managed="false" spacing="10" style="-fx-background-color: #f9f9f9; -fx-padding: 10; -fx-background-radius: 5;" visible="false">
+                    <HBox spacing="10">
+                        <TextField fx:id="campoNomeAluno" promptText="Nome" />
+                        <TextField fx:id="campoCpfAluno" promptText="CPF" />
+                        <TextField fx:id="campoTelefoneAluno" promptText="Telefone" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <TextField fx:id="campoEmailAluno" promptText="E-mail" />
+                        <DatePicker fx:id="campoDataNascimento" promptText="Data de Nascimento" />
+                        <ComboBox fx:id="comboCurso" promptText="Curso" />
+                    </HBox>
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button onAction="#cancelarFormularioAluno" style="-fx-background-color: #ccc;" text="Cancelar" />
+                        <Button onAction="#salvarAluno" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Salvar" />
+                    </HBox>
+                </VBox>
+
+                <!-- Tabela -->
                 <TableView fx:id="alunosTable" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="idAlunoColumn" text="ID" />
-                        <TableColumn fx:id="alunoNomeColumn" text="Nome" />
-                        <TableColumn fx:id="alunoCpfColumn" text="Cpf" />
-                        <TableColumn fx:id="alunoTelefoneColumn" text="Telefone" />
-                        <TableColumn fx:id="alunoEmailColumn" text="E-mail" />
-                        <TableColumn fx:id="alunoDateColumn" prefWidth="125.0" text="Data de Nascimento" />
-                        <TableColumn fx:id="alunoCursoColumn" prefWidth="57.199951171875" text="Curso" />
+                        <TableColumn fx:id="idAlunoColumn" prefWidth="33.0" text="ID" />
+                        <TableColumn fx:id="alunoNomeColumn" prefWidth="127.0" text="Nome" />
+                        <TableColumn fx:id="alunoCpfColumn" prefWidth="95.0" text="Cpf" />
+                        <TableColumn fx:id="alunoTelefoneColumn" prefWidth="94.0" text="Telefone" />
+                        <TableColumn fx:id="alunoEmailColumn" prefWidth="175.99996948242188" text="E-mail" />
+                        <TableColumn fx:id="alunoDateColumn" prefWidth="132.4000244140625" text="Data de Nascimento" />
+                        <TableColumn fx:id="alunoCursoColumn" prefWidth="230.0" text="Curso" />
                     </columns>
                 </TableView>
             </VBox>

@@ -10,6 +10,16 @@ public class Alunos {
     private String email;
     private Date dataNascimento;
     private int idCurso;
+    private String nomeCurso;
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+
 
     public int getIdAluno() {
         return idAluno;

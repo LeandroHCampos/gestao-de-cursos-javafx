@@ -20,14 +20,13 @@ public class CursosDAO {
     }
 
     public void inserir(Cursos curso) {
-        String sql = "INSERT INTO cursos (idCurso, nome, cargaHoraria, limiteAlunos, ativo) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cursos (nome, cargaHoraria, limiteAlunos, ativo) VALUES ( ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, curso.getIdCurso());
-            stmt.setString(2, curso.getNome());
-            stmt.setInt(3, curso.getCargaHoraria());
-            stmt.setInt(4, curso.getLimiteAlunos());
-            stmt.setBoolean(5, curso.isAtivo());
+            stmt.setString(1, curso.getNome());
+            stmt.setInt(2, curso.getCargaHoraria());
+            stmt.setInt(3, curso.getLimiteAlunos());
+            stmt.setBoolean(4, curso.isAtivo());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {

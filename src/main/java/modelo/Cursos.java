@@ -6,6 +6,17 @@ public class Cursos {
     private int limiteAlunos;
     private boolean ativo;
 
+    public Cursos() {}
+
+    public Cursos(int idCurso, String nome, int cargaHoraria, int limiteAlunos, boolean ativo) {
+        this.idCurso = idCurso;
+        this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
+        this.limiteAlunos = limiteAlunos;
+        this.ativo = ativo;
+
+    }
+
     public int getIdCurso() {
         return idCurso;
     }
@@ -44,5 +55,10 @@ public class Cursos {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public String toString() {
+        return idCurso + " - " + nome;
     }
 }

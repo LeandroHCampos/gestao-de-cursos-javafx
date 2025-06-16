@@ -1,7 +1,8 @@
-dao\CursosDAO.class
-modelo\Cursos.class
 app\Main.class
 app\controller\MainController.class
+modelo\Alunos.class
+dao\CursosDAO.class
+modelo\Cursos.class
 dao\AlunosDAO.class
 factory\ConnectionFactory.class
-modelo\Alunos.class
+app\controller\MainController$1.class
