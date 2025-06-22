@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.geometry.Pos;
 
 public class AlunosController {
     
@@ -30,7 +31,7 @@ public class AlunosController {
     @FXML private TableColumn<Alunos, String> alunoCpfColumn;
     @FXML private TableColumn<Alunos, String> alunoTelefoneColumn;
     @FXML private TableColumn<Alunos, String> alunoEmailColumn;
-    @FXML private TableColumn<Alunos, String> alunoDateColumn;
+    @FXML private TableColumn<Alunos, Date> alunoDateColumn;
     @FXML private TableColumn<Alunos, Boolean> alunoAtivoColumn;
     @FXML private TableColumn<Alunos, Integer> alunoCursoColumn;
     
@@ -76,7 +77,31 @@ public class AlunosController {
         idAlunoColumn.setCellValueFactory(new PropertyValueFactory<>("idAluno"));
         alunoNomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         alunoCpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        alunoCpfColumn.setCellFactory(coluna -> new TableCell<Alunos, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(formatarCPF(item));
+                }
+                setAlignment(Pos.CENTER);
+            }
+        });
         alunoTelefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        alunoTelefoneColumn.setCellFactory(coluna -> new TableCell<Alunos, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(formatarTelefone(item));
+                }
+                setAlignment(Pos.CENTER);
+            }
+        });
         alunoEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         alunoDateColumn.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
         alunoAtivoColumn.setCellValueFactory(new PropertyValueFactory<>("ativo"));
@@ -89,9 +114,63 @@ public class AlunosController {
                     setText(ativo ? "Ativo" : "Inativo");
                     setStyle(ativo ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
                 }
+                setAlignment(Pos.CENTER);
             }
         });
         alunoCursoColumn.setCellValueFactory(new PropertyValueFactory<>("nomeCurso"));
+        
+        alunoDateColumn.setCellFactory(coluna -> new TableCell<Alunos, Date>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            protected void updateItem(Date item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(formatter.format(item.toLocalDate()));
+                }
+                setAlignment(Pos.CENTER);
+            }
+        });
+        
+        centralizarConteudo(idAlunoColumn);
+        centralizarConteudo(alunoNomeColumn);
+        centralizarConteudo(alunoEmailColumn);
+        centralizarConteudo(alunoCursoColumn);
+    }
+    
+    private <T> void centralizarConteudo(TableColumn<Alunos, T> coluna) {
+        coluna.setCellFactory(c -> new TableCell<Alunos, T>() {
+            @Override
+            protected void updateItem(T item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+                setAlignment(Pos.CENTER);
+            }
+        });
+    }
+    
+    private String formatarCPF(String cpf) {
+        if (cpf == null || !cpf.matches("\\d{11}")) {
+            return cpf;
+        }
+        return cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9);
+    }
+
+    private String formatarTelefone(String telefone) {
+        if (telefone == null || !telefone.matches("\\d{10,11}")) {
+            return telefone;
+        }
+        if (telefone.length() == 11) {
+            return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7);
+        } else { // 10 dígitos
+            return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + "-" + telefone.substring(6);
+        }
     }
     
     private void configurarFiltros() {

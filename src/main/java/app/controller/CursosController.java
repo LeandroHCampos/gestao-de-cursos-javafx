@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import modelo.Cursos;
 import java.util.List;
 
+
 public class CursosController {
     
     @FXML private TableView<Cursos> cursosTable;
@@ -78,6 +79,10 @@ public class CursosController {
         });
         
         adicionarColunaAcoes();
+
+        for (TableColumn<Cursos, ?> column : cursosTable.getColumns()) {
+            column.setStyle("-fx-alignment: CENTER;");
+        }
     }
     
     private void adicionarColunaAcoes() {
