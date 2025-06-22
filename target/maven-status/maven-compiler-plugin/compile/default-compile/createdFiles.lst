@@ -1,8 +1,14 @@
+app\controller\AlunosController$2.class
+app\controller\DashboardController.class
+app\controller\CursosController$1.class
 app\Main.class
 app\controller\MainController.class
+app\controller\AlunosController.class
 modelo\Alunos.class
 dao\CursosDAO.class
+app\controller\CursosController.class
 modelo\Cursos.class
+app\controller\AlunosController$1.class
 dao\AlunosDAO.class
 factory\ConnectionFactory.class
-app\controller\MainController$1.class
+app\controller\CursosController$2.class

@@ -17,7 +17,7 @@ public class AlunosDAO {
     }
 
     public void inserir(Alunos aluno) throws SQLException {
-        String sql = "INSERT INTO alunos (nome, cpf, telefone, email, data_nascimento, idCurso) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO alunos (nome, cpf, telefone, email, data_nascimento, ativo, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, aluno.getNome());
@@ -25,7 +25,8 @@ public class AlunosDAO {
             stmt.setString(3, aluno.getTelefone());
             stmt.setString(4, aluno.getEmail());
             stmt.setDate(5, aluno.getDataNascimento());
-            stmt.setInt(6, aluno.getIdCurso());
+            stmt.setBoolean(6, aluno.isAtivo());
+            stmt.setInt(7, aluno.getIdCurso());
 
             stmt.executeUpdate();
 
@@ -45,7 +46,7 @@ public class AlunosDAO {
 
         String sql = """
             SELECT a.idAluno, a.nome, a.cpf, a.telefone, a.email, a.data_nascimento,
-                   a.idCurso, c.nome AS nomeCurso
+                   a.ativo, a.idCurso, c.nome AS nomeCurso
             FROM alunos a
             JOIN cursos c ON a.idCurso = c.idCurso
         """;
@@ -62,6 +63,7 @@ public class AlunosDAO {
                 aluno.setTelefone(rs.getString("telefone"));
                 aluno.setEmail(rs.getString("email"));
                 aluno.setDataNascimento(rs.getDate("data_nascimento"));
+                aluno.setAtivo(rs.getBoolean("ativo"));
                 aluno.setIdCurso(rs.getInt("idCurso"));
                 aluno.setNomeCurso(rs.getString("nomeCurso")); // novo campo
                 lista.add(aluno);
@@ -87,7 +89,7 @@ public class AlunosDAO {
         public void atualizar(Alunos aluno) {
         String sql = """
         UPDATE alunos SET nome = ?, cpf = ?, telefone = ?, email = ?, 
-                          data_nascimento = ?, idCurso = ?
+                          data_nascimento = ?, ativo = ?, idCurso = ?
         WHERE idAluno = ?
     """;
 
@@ -97,11 +99,50 @@ public class AlunosDAO {
             stmt.setString(3, aluno.getTelefone());
             stmt.setString(4, aluno.getEmail());
             stmt.setDate(5, aluno.getDataNascimento());
-            stmt.setInt(6, aluno.getIdCurso());
-            stmt.setInt(7, aluno.getIdAluno());
+            stmt.setBoolean(6, aluno.isAtivo());
+            stmt.setInt(7, aluno.getIdCurso());
+            stmt.setInt(8, aluno.getIdAluno());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar aluno", e);
+        }
+    }
+
+    public int contarAlunosPorCurso(int idCurso) {
+        String sql = "SELECT COUNT(*) FROM alunos WHERE idCurso = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idCurso);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao contar alunos por curso", e);
+        }
+        return 0;
+    }
+
+    public int contarAlunosAtivosPorCurso(int idCurso) {
+        String sql = "SELECT COUNT(*) FROM alunos WHERE idCurso = ? AND ativo = true";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idCurso);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao contar alunos ativos por curso", e);
+        }
+        return 0;
+    }
+
+    public void setAlunosInativosPorCurso(int idCurso) {
+        String sql = "UPDATE alunos SET ativo = false WHERE idCurso = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idCurso);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao inativar alunos do curso", e);
         }
     }
 }

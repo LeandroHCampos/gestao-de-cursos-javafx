@@ -6,6 +6,18 @@ public class Cursos {
     private int limiteAlunos;
     private boolean ativo;
 
+    public static boolean validarTamanhoNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            return false;
+        }
+        
+        return nome.trim().length() >= 3;
+    }
+
+    public static boolean validarCargaHoraria(int cargaHoraria) {
+        return cargaHoraria >= 20;
+    }
+
     public Cursos() {}
 
     public Cursos(int idCurso, String nome, int cargaHoraria, int limiteAlunos, boolean ativo) {
@@ -59,6 +71,6 @@ public class Cursos {
 
     @Override
     public String toString() {
-        return idCurso + " - " + nome;
+        return nome;
     }
 }

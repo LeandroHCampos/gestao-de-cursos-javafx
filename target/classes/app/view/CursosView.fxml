@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="app.controller.CursosController">
+    
+    <!-- Cabeçalho com botão Adicionar -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Cursos" />
+
+        <HBox HBox.hgrow="NEVER" prefWidth="50" />
+
+        <Label text="Filtros:" style="-fx-font-weight: bold;" />
+        <ComboBox fx:id="filtroStatusCursoComboBox" onAction="#aplicarFiltroStatusCurso" promptText="Filtrar por Status" />
+        <Button onAction="#limparFiltroStatusCurso" text="Mostrar Todos" />
+
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#toggleFormularioCurso" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar Curso" />
+    </HBox>
+
+    <!-- Formulário de Curso oculto por padrão -->
+    <VBox fx:id="formularioCurso" managed="false" spacing="10" style="-fx-background-color: #f9f9f9; -fx-padding: 10; -fx-background-radius: 5;" visible="false">
+        <HBox spacing="10">
+            <TextField fx:id="campoNomeCursoColumn" promptText="Nome do curso" />
+            <TextField fx:id="campoCargaHorariaColumn" promptText="Carga Horaria" />
+            <TextField fx:id="campoLimiteAlunosColumn" promptText="Limite de alunos" />
+        </HBox>
+        <HBox spacing="10">
+            <ComboBox fx:id="campoAtivoColumn" promptText="Status" />
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#cancelarFormularioCurso" style="-fx-background-color: #ccc;" text="Cancelar" />
+            <Button onAction="#adicionarCurso" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Salvar" />
+        </HBox>
+    </VBox>
+
+    <!-- Tabela de Cursos -->
+    <TableView fx:id="cursosTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="cursoIdColumn" text="ID" />
+            <TableColumn fx:id="cursoNomeColumn" text="Nome" />
+            <TableColumn fx:id="cursoCargaHorariaColumn" text="Carga Horária" />
+            <TableColumn fx:id="cursoLimiteAlunosColumn" text="Limite de Alunos" />
+            <TableColumn fx:id="cursoAtivoColumn" text="Status" />
+        </columns>
+    </TableView>
+    
+</VBox>
