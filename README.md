@@ -48,10 +48,35 @@ Sistema JavaFX para gestão de cursos e alunos, desenvolvido seguindo boas prát
 
 ## Como Executar
 
-1. Certifique-se de ter o Java 17+ instalado
-2. Configure o banco de dados MySQL
-3. Execute a classe `app.Main`
-4. Use o menu lateral para navegar entre as telas
+### Pré-requisitos
+- **Java 17+**: Certifique-se de que o JDK 17 ou superior está instalado e configurado no seu sistema.
+- **Maven**: Necessário para gerenciamento de dependências e para executar a aplicação via linha de comando.
+- **MySQL**: O banco de dados utilizado para persistir os dados da aplicação.
+
+### 1. Configuração do Banco de Dados
+- Crie um banco de dados no MySQL com o nome `universidade`.
+- O sistema tentará se conectar utilizando as seguintes credenciais:
+  - **URL**: `jdbc:mysql://localhost/universidade`
+  - **Usuário**: `root`
+  - **Senha**: `fatec`
+- Caso suas credenciais sejam diferentes, você pode alterá-las no arquivo `src/main/java/factory/ConnectionFactory.java`.
+
+### 2. Executando a Aplicação
+
+Existem duas maneiras de executar a aplicação:
+
+#### Via Linha de Comando (com Maven)
+A forma mais garantida de executar, pois o Maven cuida de todas as dependências e módulos do JavaFX.
+```bash
+mvn clean javafx:run
+```
+
+#### Via IDE (Ex: IntelliJ, VSCode, Eclipse)
+Após a refatoração que separou o `Main` do `App`, é possível executar diretamente pela IDE.
+1. Abra o projeto na sua IDE de preferência.
+2. Aguarde a IDE sincronizar e baixar as dependências do Maven.
+3. Localize o arquivo `src/main/java/app/Main.java`.
+4. Execute o método `main` deste arquivo.
 
 ## Tecnologias Utilizadas
 

@@ -5,6 +5,7 @@ public class Cursos {
     private int cargaHoraria;
     private int limiteAlunos;
     private boolean ativo;
+    private int quantidadeAlunos;
 
     public static boolean validarTamanhoNome(String nome) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -67,6 +68,14 @@ public class Cursos {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public int getQuantidadeAlunos() {
+        return quantidadeAlunos;
+    }
+
+    public void setQuantidadeAlunos(int quantidadeAlunos) {
+        this.quantidadeAlunos = quantidadeAlunos;
     }
 
     @Override

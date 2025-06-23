@@ -19,6 +19,7 @@ public class CursosController {
     @FXML private TableColumn<Cursos, Integer> cursoCargaHorariaColumn;
     @FXML private TableColumn<Cursos, Integer> cursoLimiteAlunosColumn;
     @FXML private TableColumn<Cursos, Boolean> cursoAtivoColumn;
+    @FXML private TableColumn<Cursos, Integer> cursoQuantidadeDeAlunos;
     
     @FXML private VBox formularioCurso;
     @FXML private TextField campoNomeCursoColumn;
@@ -65,6 +66,7 @@ public class CursosController {
         cursoCargaHorariaColumn.setCellValueFactory(new PropertyValueFactory<>("cargaHoraria"));
         cursoLimiteAlunosColumn.setCellValueFactory(new PropertyValueFactory<>("limiteAlunos"));
         cursoAtivoColumn.setCellValueFactory(new PropertyValueFactory<>("ativo"));
+        cursoQuantidadeDeAlunos.setCellValueFactory(new PropertyValueFactory<>("quantidadeAlunos"));
         cursoAtivoColumn.setCellFactory(coluna -> new TableCell<Cursos, Boolean>() {
             @Override
             protected void updateItem(Boolean ativo, boolean vazio) {

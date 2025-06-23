@@ -44,7 +44,7 @@ public class CursosDAO {
 
     public List<Cursos> listarTodos() {
         List<Cursos> cursos = new ArrayList<>();
-        String sql = "SELECT * FROM cursos";
+        String sql = "SELECT c.*, (SELECT COUNT(*) FROM alunos a WHERE a.idCurso = c.idCurso AND a.ativo = 1) as quantidade_alunos FROM cursos c";
 
 
         try(PreparedStatement stmt = connection.prepareStatement(sql);
@@ -57,6 +57,7 @@ public class CursosDAO {
                 curso.setCargaHoraria(rs.getInt("cargaHoraria"));
                 curso.setLimiteAlunos(rs.getInt("limiteAlunos"));
                 curso.setAtivo(rs.getBoolean("ativo"));
+                curso.setQuantidadeAlunos(rs.getInt("quantidade_alunos"));
                 cursos.add(curso);
             }
         } catch (SQLException e) {

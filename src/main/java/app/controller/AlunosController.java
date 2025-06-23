@@ -584,7 +584,7 @@ public class AlunosController {
                 long ativos = alunosDoCurso.stream().filter(Alunos::isAtivo).count();
                 long inativos = alunosDoCurso.size() - ativos;
                 int capacidade = curso.getLimiteAlunos();
-                String ocupacao = capacidade > 0 ? (alunosDoCurso.size() + "/" + capacidade + " ocupados – " + (int)(100.0 * alunosDoCurso.size() / capacidade) + "%") : "-";
+                String ocupacao = capacidade > 0 ? (curso.getQuantidadeAlunos() + "/" + capacidade + " ocupados – " + (int)(100.0 * curso.getQuantidadeAlunos() / capacidade) + "%") : "-";
                 writer.write("Curso: " + curso.getNome() + " (" + ocupacao + ")\n");
                 writer.write("-------------------------------------------\n");
                 writer.write("Ativos: " + ativos + " | Inativos: " + inativos + "\n");

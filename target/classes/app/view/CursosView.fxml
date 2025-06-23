@@ -45,6 +45,7 @@
             <TableColumn fx:id="cursoCargaHorariaColumn" text="Carga Horária" />
             <TableColumn fx:id="cursoLimiteAlunosColumn" text="Limite de Alunos" />
             <TableColumn fx:id="cursoAtivoColumn" text="Status" />
+            <TableColumn fx:id="cursoQuantidadeDeAlunos" text="Alunos cadastrados" />
         </columns>
     </TableView>
     
